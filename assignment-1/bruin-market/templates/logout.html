@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %}Logout{% endblock %} {% block content
+%}
+<h1>Logout</h1>
+<script>
+  async function logout() {
+    let res = await fetch("/api/session/me", {
+      method: "GET",
+    });
+    if ((await res.status) !== 200) {
+      alert("You are not logged in!");
+      window.location.href = "/";
+      return;
+    }
+    let data = await res.json();
+    let session = data["session"];
+
+    let res_logout = await fetch("/api/session/" + session.id, {
+      method: "DELETE",
+    });
+    if ((await res_logout.status) !== 200) {
+      alert("Logout failed!");
+      return;
+    }
+
+    alert("Logout successful!");
+    window.location.href = "/";
+  }
+
+  window.onload = logout;
+</script>
+{% endblock %}

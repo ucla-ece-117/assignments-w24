@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block title %}View Gift{% endblock %} {% block
+content %}
+<h1>View Gift</h1>
+<span>
+  <strong>Message:</strong>
+  <p>{{ gift.note | safe}}</p>
+</span>
+<div id="code" value="{{ gift.code }}">Code: {{ gift.code }}</div>
+{% endblock %}

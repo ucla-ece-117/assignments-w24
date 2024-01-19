@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} | Bruin Market</title>
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    {% if csp %}
+    <meta http-equiv="Content-Security-Policy" content="script-src 'none';" />
+    {% endif %}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li id="logo">
+          <img src="/static/logo.png" alt="ECE 117 course logo." />
+        </li>
+        <li><a href="/home">Home</a></li>
+        {% if auth %}
+        <li><a href="/market">Market</a></li>
+        <li><a href="/gift">Gift</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        {% else %}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    <section class="content">{% block content %}{% endblock %}</section>
+  </body>
+</html>

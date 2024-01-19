@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content
+%}
+<h1>Login</h1>
+<div class="form">
+  <div class="field">
+    <span>Username:</span>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      default="Username"
+      required
+    />
+  </div>
+  <div class="field">
+    <span>Password:</span>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      default="Password"
+      required
+    />
+  </div>
+  <button type="submit" onclick="login()">Login</button>
+</div>
+
+<script>
+  async function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let data = {
+      username: username,
+      password: password,
+    };
+    let res = await fetch("/api/session", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if ((await res.status) === 201) {
+      alert("Login successful!");
+      window.location.href = "/";
+    } else {
+      let json = await res.json();
+      console.log(json);
+      alert("Login failed: " + json["status"] + "");
+    }
+  }
+</script>
+{% endblock %}

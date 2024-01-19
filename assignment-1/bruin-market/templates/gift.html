@@ -1,0 +1,65 @@
+{% extends 'base.html' %} {% block title %}Gift{% endblock %} {% block content
+%}
+<h1>Gift</h1>
+<img src="/static/bruin-place-1.png" alt="Gift" id="gift" />
+<p>
+  Send a gift to a friend! Surprise your loved ones with the perfect gift,
+  effortlessly! Introducing Bruin Market's Gift Sending Feature – a seamless way
+  to spread joy and express your sentiments. Choose from our curated collection
+  of thoughtfully selected gifts, add a personalized message, and leave the rest
+  to us. Whether it's a birthday, anniversary, or just a spontaneous gesture,
+  our Gift Sending Feature ensures a delightful and stress-free experience. Make
+  every occasion special with Bruin Market, where sending love is just a click
+  away.
+</p>
+<hr />
+<h2>Send Gift</h2>
+<div>
+  <p>
+    <strong>Recipient: </strong>
+    <input
+      type="text"
+      id="recipient"
+      name="username"
+      default="Recipient"
+      required
+    />
+  </p>
+  <p>
+    <strong>Message: </strong>
+  </p>
+  <p>
+    <textarea id="note" name="note" default="Note" required></textarea>
+  </p>
+  <button onclick="gift()">Gift</button>
+  <script>
+    async function gift() {
+      const recipient = document.getElementById("recipient").value;
+      const note = document.getElementById("note").value;
+      let data = {
+        recipient: recipient,
+        note: note,
+      };
+
+      let res = await fetch("/api/gift", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      let json = await res.json();
+
+      if ((await res.status) !== 201) {
+        alert("Gift failed to send! " + json.status);
+        return;
+      }
+
+      alert("Gift sent!");
+      let gift_id = await json.gift.id;
+      window.location.href = "/gift/view/" + gift_id;
+    }
+  </script>
+  {% endblock %}
+</div>

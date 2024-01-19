@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content
+%}
+<h1>Register</h1>
+<div class="form">
+  <div class="field">
+    <span>Username:</span>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      default="Username"
+      required
+    />
+  </div>
+  <div class="field">
+    <span>Password:</span>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      default="Password"
+      required
+    />
+  </div>
+  <button type="submit" onclick="register()">Register</button>
+</div>
+<script>
+  async function register() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let data = {
+      username: username,
+      password: password,
+    };
+    let res = await fetch("/api/user", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if ((await res.status) === 201) {
+      alert("Registration successful!");
+      window.location.href = "/login";
+    } else {
+      let json = await res.json();
+      alert("Registration failed: " + json["status"] + "");
+    }
+  }
+</script>
+{% endblock %}

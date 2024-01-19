@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block title %}Market{% endblock %} {% block content
+%}
+<h1>Market</h1>
+<p>
+  Dive into a world of endless possibilities with Bruin Market's latest feature!
+  Our Market Feature is your gateway to a diverse marketplace where you can
+  explore and discover an array of products tailored to your unique taste. From
+  fashion-forward styles to cutting-edge gadgets, home essentials to artisanal
+  treasures – our market is a treasure trove waiting to be explored. Experience
+  the thrill of finding something new every time you browse. Make Bruin Market
+  your one-stop destination for all your shopping desires, and let the adventure
+  begin!
+</p>
+
+<hr />
+
+<h2>Items</h2>
+<ul>
+  <li>
+    <a
+      href='/item?name=Bruin%20Shirt&description=<img%20src%3D"%2Fstatic%2Fitem-1.png">%0A%0AElevate%20your%20style%20with%20the%20Bruin%20Market%20Shirt%20–%20a%20perfect%20blend%20of%20comfort%20and%20fashion-forward%20design.%20Crafted%20with%20precision%20and%20attention%20to%20detail%2C%20our%20shirt%20showcases%20a%20unique%20aesthetic%20that%20effortlessly%20complements%20any%20wardrobe.%20Whether%20you%27re%20making%20a%20statement%20at%20work%20or%20adding%20flair%20to%20your%20casual%20look%2C%20the%20Bruin%20Market%20Shirt%20is%20the%20epitome%20of%20versatility.%20Embrace%20quality%2C%20embrace%20style%20%20redefine%20your%20wardrobe%20with%20the%20distinctive%20charm%20of%20the%20Bruin%20Market%20Shirt.'
+      >Bruin Shirt</a
+    >
+  </li>
+  <li>
+    <a
+      href="/item?name=Bruin%20Stairs&description=<img%20src%3D%27%2Fstatic%2Fitem-2.png%27>%0A%0AIntroducing%20Bruin%20Stairs%20–%20where%20every%20step%20is%20a%20journey%20towards%20elevated%20living.%20Crafted%20with%20a%20perfect%20blend%20of%20functionality%20and%20aesthetics%2C%20Bruin%20Stairs%20redefine%20your%20space%20with%20a%20touch%20of%20sophistication.%20Designed%20to%20seamlessly%20integrate%20into%20your%20surroundings%2C%20these%20stairs%20showcase%20modern%20elegance%20and%20durability.%20Elevate%20not%20just%20your%20physical%20ascent%20but%20also%20the%20ambiance%20of%20your%20space.%20Step%20into%20a%20new%20realm%20of%20architectural%20finesse%20with%20Bruin%20Stairs%20–%20where%20each%20step%20is%20a%20statement%20in%20style%20and%20substance."
+      >Bruin Stairs</a
+    >
+  </li>
+  <li>
+    <a
+      href="/item?name=Bruin%20Photo&description=<img%20src%3D%27%2Fstatic%2Fitem-3.png%27>%0A%0ACapture%20the%20moments%20that%20matter%20with%20Bruin%20Photo%20–%20where%20memories%20come%20to%20life%20through%20the%20lens%20of%20creativity.%20Our%20photography%20services%20go%20beyond%20the%20ordinary%2C%20transforming%20your%20special%20occasions%20into%20timeless%20visual%20narratives.%20With%20a%20team%20of%20skilled%20photographers%2C%20state-of-the-art%20equipment%2C%20and%20a%20passion%20for%20storytelling%2C%20Bruin%20Photo%20ensures%20that%20every%20snapshot%20tells%20a%20unique%20story.%20From%20weddings%20to%20family%20portraits%2C%20let%20Bruin%20Photo%20be%20your%20trusted%20partner%20in%20preserving%20the%20essence%20of%20your%20cherished%20moments.%20Unveil%20the%20artistry%20of%20photography%20with%20Bruin%20Photo%20–%20where%20every%20image%20is%20a%20work%20of%20heart."
+      >Bruin Photo</a
+    >
+  </li>
+</ul>
+
+<hr />
+
+<h2>Create Item</h2>
+<div>
+  <p>
+    <strong>Name: </strong>
+    <input
+      type="text"
+      id="item-name"
+      name="name"
+      default="Item Name"
+      required
+    />
+  </p>
+  <p>
+    <strong>Description:</strong>
+  </p>
+  <p>
+    <textarea
+      id="item-description"
+      name="description"
+      default="Item Description"
+      required
+    ></textarea>
+  </p>
+  <button onclick="createItem()">Create</button>
+</div>
+<script>
+  function createItem() {
+    const name = document.getElementById("item-name").value;
+    const description = document.getElementById("item-description").value;
+    window.location.href =
+      "/item?name=" +
+      encodeURIComponent(name) +
+      "&description=" +
+      encodeURIComponent(description);
+  }
+</script>
+{% endblock %}
