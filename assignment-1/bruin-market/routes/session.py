@@ -97,8 +97,10 @@ def post():
         res["session"] = session.json()
 
         response = make_response(jsonify(res), 201)
-        response.set_cookie("session", token)
-
+        response.headers.add(
+            "Set-Cookie",
+            "session=" + token + "; Path=/; SameSite=None; Secure; HttpOnly",
+        )
         return response
 
 

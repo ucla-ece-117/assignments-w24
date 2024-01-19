@@ -2,31 +2,35 @@ from flask import request
 
 from app import db
 
+import string, secrets
+
 
 class Session(db.Model):
     __tablename__ = "sessions"
 
-    _count = 0
-
-    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.String(12), unique=True, nullable=False, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     token = db.Column(db.String(24), unique=True, nullable=False)
 
     def __init__(self, token, user_id):
-        sessions = db.session.query(self.__class__).all()
-        count = len(sessions)
+        uid = "".join(
+            secrets.choice(
+                string.ascii_uppercase + string.ascii_lowercase + string.digits
+            )
+            for _ in range(12)
+        )
 
-        if count != 0:
-            if sessions[-1].id >= Session._count:
-                Session._count = sessions[-1].id + 1
-            else:
-                Session._count = count
+        while db.session.query(Session).filter_by(id=uid).first() is not None:
+            uid = "".join(
+                secrets.choice(
+                    string.ascii_uppercase + string.ascii_lowercase + string.digits
+                )
+                for _ in range(12)
+            )
 
-        self.id = Session._count
+        self.id = uid
         self.user_id = user_id
         self.token = token
-
-        Session._count += 1
 
     def __repr__(self):
         return "<Session %r>" % self.token

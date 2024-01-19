@@ -1,32 +1,37 @@
 from app import db
 
 
+import string, secrets
+
+
 class User(db.Model):
     __tablename__ = "users"
 
-    _count = 0
-
-    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.String(12), unique=True, nullable=False, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     balance = db.Column(db.Float(precision=2), nullable=False)
 
     def __init__(self, username, password):
-        users = db.session.query(self.__class__).all()
-        count = len(users)
+        uid = "".join(
+            secrets.choice(
+                string.ascii_uppercase + string.ascii_lowercase + string.digits
+            )
+            for _ in range(12)
+        )
 
-        if count != 0:
-            if users[-1].id >= User._count:
-                User._count = users[-1].id + 1
-            else:
-                User._count = count
+        while db.session.query(User).filter_by(id=uid).first() is not None:
+            uid = "".join(
+                secrets.choice(
+                    string.ascii_uppercase + string.ascii_lowercase + string.digits
+                )
+                for _ in range(12)
+            )
 
-        self.id = User._count
+        self.id = uid
         self.username = username
         self.password = password
         self.balance = 1000.0
-
-        User._count += 1
 
     def __repr__(self):
         return "<User %r>" % self.username
