@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>XSS Me - Part 5</title>
+    </head>
+    <body>
+        <h1>XSS Me - Part 5</h1>
+        <p>Try to pop an alert. Then try to exfiltrate a cookie. Insert your payload into <code>http://this-url?payload=</code>.</p>
+        <div id="target"></div>
+        <script>
+            let params = new URLSearchParams(window.location.search);
+            let payload = params.get('payload');
+
+            // Don't allow the use of fetch.
+            payload = payload.replace(/fetch/g, '');
+
+            let target = document.getElementById('target');
+            target.innerHTML = payload;
+        </script>
+    </body>
+</html>

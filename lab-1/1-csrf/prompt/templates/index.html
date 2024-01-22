@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CSRF'ing USA</title>
+  </head>
+  <body>
+    <h1>CSRF'ing USA</h1>
+    <button onclick="auth()">Authenticate</button>
+
+    {% if auth %}
+    <h2>Username</h2>
+    <p>Username: {{ username }}</p>
+    <h2>Balance</h2>
+    <p>Balance: {{ balance }}</p>
+    {% endif %}
+
+    <script>
+      async function auth() {
+        let res = await fetch("/auth", {
+          method: "POST",
+        });
+        let text = await res.json();
+        alert("Authenticated!");
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

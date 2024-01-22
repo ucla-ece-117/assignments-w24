@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>XSS Me - Part 9</title>
+    </head>
+    <body>
+        <h1>XSS Me - Part 9</h1>
+        <p>Try to pop an alert. Then try to exfiltrate a cookie. Insert your payload into <code>http://this-url?payload=</code>.</p>
+        <div id="target"></div>
+        <script>
+            let params = new URLSearchParams(window.location.search);
+            let payload = params.get('payload');
+
+            let target = document.getElementById('target');
+            // Let's put it in an iframe, for good measure.
+            target.innerHTML = "<iframe srcdoc='" + payload + "' sandbox></iframe>";
+        </script>
+    </body>
+</html>

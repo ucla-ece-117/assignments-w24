@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>XSS Me - Part 6</title>
+    </head>
+    <body>
+        <h1>XSS Me - Part 6</h1>
+        <p>Try to pop an alert. Then try to exfiltrate a cookie. Insert your payload into <code>http://this-url?payload=</code>.</p>
+        <div id="target"></div>
+        <script>
+            let params = new URLSearchParams(window.location.search);
+            let payload = params.get('payload');
+
+            // No fetch.
+            payload = payload.replace(/fetch/g, '');
+            // No cookies either.
+            payload = payload.replace("document\.cookie", '');
+
+            let target = document.getElementById('target');
+
+            // Let's add the output in a comment. This way, you can't get XSS.
+            target.innerHTML = `<!-- ${payload} -->`;
+        </script>
+    </body>
+</html>
