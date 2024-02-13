@@ -7,9 +7,9 @@ void setup() {
 }
 
 void chall() {
-    int secret1 = 0x1337;
-    long secret2 = 0xdeadbeef;
-    char secret3[0x20] = "Hello, World!";
+    volatile int secret1 = 0x1337;
+    volatile long secret2 = 0xdeadbeef;
+    volatile char secret3[] = "Hello, World!\0";
 
     char buffer[0x20];
     puts("Enter your answer: ");
