@@ -8,3 +8,4 @@ Assignments & labs for ECE 117: Computer Systems Security taught Winter 2024 at 
 
 ## Labs
 - [Lab 1: Web Security](./lab-1/README.md)
+- [Lab 2: Software Security](./lab-2/README.md)
