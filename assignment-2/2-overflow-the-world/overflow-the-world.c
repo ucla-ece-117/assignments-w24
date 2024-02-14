@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 void print_flag() {
+    setuid(0);
     char flag[64];
-    FILE *f = fopen("flag.txt", "r");
+    FILE *f = fopen("flag-2.txt", "r");
     if (f == NULL) {
         printf("Flag file is missing.\n");
         exit(1);
